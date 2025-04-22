@@ -9,9 +9,11 @@ def print_help():
     print()
     print("command prompts:")
     print("""
-    help:   show this help message 
-    quit:   quit the chat bot
-    ls:     list files from your project found by locobot
+    help:       show this help message 
+    quit:       quit the chat bot
+    ls:         list files from your project found by locobot
+    save:       save the last response as markdown file
+    saveall:    save whole conversation as markdown file
           """)
 
 if __name__ == "__main__":
@@ -37,11 +39,19 @@ if __name__ == "__main__":
                 print_help()
             elif prompt.lower() == "ls":
                 print(bot.get_file_list())
+            elif prompt.lower() == "save":
+                response = bot.get_last_response()
+                with open("locobot_response.md", "w") as file:
+                    file.write(response)
+            elif prompt.lower() == "saveall":
+                convo = bot.get_conversation()
+                with open("locobot_response.md", "w") as file:
+                    file.write(convo)
             else:
                 response = bot.submit_prompt(prompt)
                 print()
                 print("locobot> ", end="")
                 
-                for chunk in response:
-                    print(chunk['message']['content'], end="")
+                for chunk_content in response:
+                    print(chunk_content, end="")
                 print()

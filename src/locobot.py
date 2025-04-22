@@ -2,7 +2,7 @@ import ollama
 
 from data_embedding import load_data, get_embedding_data, list_files
 
-SYSTEM_PROMPT="""You are a helpful coding assistant. Try to respond to the user's requests in a professional and concise manner. Use code snippets when appropriate"""
+SYSTEM_PROMPT="""You are a helpful coding assistant. Try to respond to the user's requests in a professional and concise manner. Use code snippets when appropriate. Use markdown for text formatting."""
 USER_PROMPT = SYSTEM_PROMPT
 
 class Locobot:
@@ -25,7 +25,29 @@ class Locobot:
                            options={"context": self.context_size},
                            messages=self.chat_history, 
                            stream=True)
-        return response
+        
+        full_response = ""
+        for chunk in response:
+            full_response += chunk['message']['content']
+            yield chunk['message']['content']
+            
+        self.chat_history.append( {"role": "assistant", "content": full_response, "user_prompt": full_response} )
+        
     
     def get_file_list(self):
         return self.file_list
+    
+    def get_last_response(self):
+        return self.chat_history[-1]["content"]
+    
+    def get_conversation(self):
+        
+        convo = ""
+        for message in self.chat_history:
+            if message["role"] != "system":
+                convo += "**locobot\\>** " if message["role"] == "assistant" else "**you\\>** "
+                convo += message["user_prompt"]
+                convo += "\n\n\n"
+            
+        return convo
+            

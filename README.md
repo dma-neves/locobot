@@ -33,3 +33,6 @@ python src/main.py config.json
 ```
 
 You must pass a config json which specifies the directory of a software project on your machine, and the files/paths to include and exclude. See [example.json](config/example.json) for reference.
+
+
+There is a set of specific prompts that LoCoBot interprets a as commands. These include commands to save the conversation to a markdown file, listing the files LoCoBot is using for context, etc. Use the prompt `help` to get a comprehensive list of these commands.
