@@ -46,6 +46,8 @@ class Locobot:
         for message in self.chat_history:
             if message["role"] != "system":
                 convo += "**locobot\\>** " if message["role"] == "assistant" else "**you\\>** "
+                if not message["user_prompt"][0].isalnum():
+                    convo += "\n"
                 convo += message["user_prompt"]
                 convo += "\n\n\n"
             
