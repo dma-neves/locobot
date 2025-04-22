@@ -18,10 +18,20 @@ ollama pull mxbai-embed-large
 
 **Python virtual environment**
 
+
+Note: python >= 3.10 is required.
+
 ```sh
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+source .venv/bin/activate
+```
+
+If, while trying to run LoCoBot, you encounter some error related to sqlite3, try running:
+
+```sh
+python -m pip install pysqlite3-binary
 ```
 
 ## Run and Config
