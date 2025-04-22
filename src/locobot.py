@@ -47,7 +47,7 @@ class Locobot:
             if message["role"] != "system":
                 convo += "**locobot\\>** " if message["role"] == "assistant" else "**you\\>** "
                 if not message["user_prompt"][0].isalnum():
-                    convo += "\n"
+                    convo += "\n\n"
                 convo += message["user_prompt"]
                 convo += "\n\n\n"
             
