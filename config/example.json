@@ -1,0 +1,5 @@
+{
+    "root_directory": "./example/grades",
+    "include_extensions": [".py"],
+    "exclude_paths": []
+}
